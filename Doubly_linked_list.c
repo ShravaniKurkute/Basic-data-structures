@@ -137,7 +137,7 @@ void deleteAtPosition()
   printf("Empty linked list\n");
   else{
   temp=head;
-  while(temp!=NULL)
+  while(temp->next!=NULL)
   {
     temp=temp->next;
     count++;
