@@ -6,7 +6,7 @@ struct node{
     struct node *next, *prev;
     };
     
-    struct node *head=NULL,*next,*newnode, *temp, *last=NULL, *nextnode;
+    struct node *head=NULL,*next,*newnode, *temp, *last=NULL, *nextnode, *prevnode;
     int count,pos;
 
 void insertAtFirst()
@@ -91,6 +91,12 @@ void deleteAtFirst()
  {
     printf("Empty linked list\n");
  }
+ else if (head->next==NULL)
+ {
+    temp=head;
+    head=NULL;
+    free(temp);
+ } 
 else{
     temp=head;
     head=head->next;
@@ -102,35 +108,30 @@ else{
 
 void deleteAtLast()
 {
-  if(head==NULL)
-    {
-       printf("Empty linked list\n");
-    }
-  else
+  temp=head;
+  while(temp->next!=NULL)
   {
-    if(head->next==NULL)
-    {
-        temp=head;
-        head=NULL;
-        free(temp);
-    }
-    else
-    {
-    temp=head;
-    while(temp->next!=NULL)
-    {
-        temp=temp->next;
-    }
-    temp->prev->next=NULL;
-    temp->next=NULL;
+    prevnode=temp;
+    temp=temp->next;
+  }
+  if(head==NULL)
+  printf("Empty linked list\n");
+  else if(temp==head)
+  {
+    head=NULL;
     free(temp);
   }
- }
+  else
+  {
+    prevnode->next=NULL;
+    temp->prev=NULL;
+    free(temp);
+  }
 }
 
 void deleteAtPosition()
 {
-  count=0;
+  count=1;
   int i=1;
   if(head==NULL)
   printf("Empty linked list\n");
@@ -155,11 +156,12 @@ void deleteAtPosition()
     temp=head;
     while(i<pos)
     {
+        prevnode=temp;
         temp=temp->next;
         i++;
     }
-    temp->next->prev=temp->prev;
-    temp->prev->next=temp->next;
+    prevnode->next=temp->next;
+    temp->next->prev=prevnode;
     temp->next=NULL;
     temp->prev=NULL;
     free(temp);
