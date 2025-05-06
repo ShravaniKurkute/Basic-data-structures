@@ -7,7 +7,7 @@ struct node{
     };
     
     struct node *head=NULL,*next,*newnode, *temp, *last=NULL, *nextnode, *prevnode;
-    int count,pos;
+    int count,pos,key;
 
 void insertAtFirst()
 {
@@ -172,6 +172,7 @@ void deleteAtPosition()
 
 void display()
 {
+count=0;
 if(head==NULL)
 printf("Empty linked list\n");
 else{
@@ -182,6 +183,7 @@ while(temp!=NULL)
 printf("%d ",temp->data);
 last=temp;
 temp=temp->next;
+count++;
 }
 printf("\n");
 printf("Reverese Linked list: ");
@@ -192,7 +194,32 @@ while(temp!=NULL)
     temp=temp->prev;
 }
 printf("\n");
+printf("Total nodes :%d\n",count);
 }
+}
+
+void searchnode()
+{
+if(head==NULL)
+printf("Empty linked list\n");
+else
+{
+int i=1, count=0;
+printf("Enter key: ");
+scanf("%d",&key);
+temp=head;
+while(temp!=NULL)
+{
+if(key==temp->data)
+{
+printf("%d found at %d position\n",key,i);
+break;
+}
+else
+{
+temp=temp->next;
+i++;
+}}}
 }
 
 int main()
@@ -200,7 +227,7 @@ int main()
     int ch;
     while(1)
     {
-        printf("Enter your choice:\n1)Insert at first\n2)Insert at last\n3)Insert at position\n4)Delete at first\n5)Delete at last\n6)Delete at position\n7)Display\n8)Exit\n");
+        printf("Enter your choice:\n1)Insert at first\n2)Insert at last\n3)Insert at position\n4)Delete at first\n5)Delete at last\n6)Delete at position\n7)Display\n8)Search node\n9)Exit\n");
         scanf("%d",&ch);
         switch(ch)
         {
@@ -226,6 +253,9 @@ int main()
             display();
             break;
             case 8:
+            search();
+            break;
+            case 9:
             printf("Exit\n");
             return 0;
             default:
